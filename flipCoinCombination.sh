@@ -9,37 +9,57 @@ echo "This problem displays winning percentage of Head or Tail Combination in a 
 echo ""
 
 
-#As a simulator, loop through Multiple times of flipping a coin store the Singlet Combination in a Dictionary. Finally determine the percentage of the Singlet Combination.
-#Singlet shows Heads or Tails
-hh=0; ht=0; th=0; tt=0;
-declare -A doubletDictionary
+#As a simulator, do the same for Triplet Combination.
+hhh=0; hht=0; hth=0; htt=0; thh=0; tht=0; tth=0; ttt=0;
+declare -A tripletDictionary
 for (( i = 0; i<100; i++ )); do
 	flip1=$((RANDOM%2))
 	flip2=$((RANDOM%2))
-	if [[ ${flip1} -eq 0 && ${flip2} -eq 0 ]]; then
-		hh=$((hh+1))
-		doubletDictionary[$i]=HH
-	elif [[ ${flip1} -eq 0 && ${flip2} -eq 1 ]]; then
-		ht=$((ht+1))
-		doubletDictionary[$i]=HT
-	elif [[ ${flip1} -eq 1 && ${flip2} -eq 0 ]]; then
-		th=$((th+1))
-		doubletDictionary[$i]=TH
-	elif [[ ${flip1} -eq 1 && ${flip2} -eq 1 ]]; then
-		tt=$((tt+1))
-		doubletDictionary[$i]=TT
+	flip3=$((RANDOM%2))
+	if [[ ${flip1} -eq 0 && ${flip2} -eq 0 && ${flip3} -eq 0 ]]; then
+		hhh=$((hhh+1))
+		tripletDictionary[$i]=HHH
+	elif [[ ${flip1} -eq 0 && ${flip2} -eq 0 && ${flip3} -eq 1 ]]; then
+		hht=$((hht+1))
+		tripletDictionary[$i]=HHT
+	elif [[ ${flip1} -eq 0 && ${flip2} -eq 1 && ${flip3} -eq 0 ]]; then
+		hth=$((hth+1))
+		tripletDictionary[$i]=HTH
+	elif [[ ${flip1} -eq 0 && ${flip2} -eq 1 && ${flip3} -eq 1 ]]; then
+		htt=$((htt+1))
+		tripletDictionary[$i]=HTT
+	elif [[ ${flip1} -eq 1 && ${flip2} -eq 0 && ${flip3} -eq 0 ]]; then
+		thh=$((thh+1))
+		tripletDictionary[$i]=THH
+	elif [[ ${flip1} -eq 1 && ${flip2} -eq 0 && ${flip3} -eq 1 ]]; then
+		tht=$((tht+1))
+		tripletDictionary[$i]=THT
+	elif [[ ${flip1} -eq 1 && ${flip2} -eq 1 && ${flip3} -eq 0 ]]; then
+		tth=$((tth+1))
+		tripletDictionary[$i]=TTH
+	elif [[ ${flip1} -eq 1 && ${flip2} -eq 1 && ${flip3} -eq 1 ]]; then
+		ttt=$((ttt+1))
+		tripletDictionary[$i]=TTT
 	fi
 done
 
-percentageHH=$(($(($hh*100))/$(($hh+$th+$ht+$tt))))
-percentageHT=$(($(($ht*100))/$(($hh+$th+$ht+$tt))))
-percentageTH=$(($(($th*100))/$(($hh+$th+$ht+$tt))))
-percentageTT=$(($(($tt*100))/$(($hh+$th+$ht+$tt))))
+percentageHHH=$(($(($hhh*100))/$(($hhh+$hht+$hth+$htt+$thh+$tht+$tth+$ttt))))
+percentageHHT=$(($(($hht*100))/$(($hhh+$hht+$hth+$htt+$thh+$tht+$tth+$ttt))))
+percentageHTH=$(($(($hth*100))/$(($hhh+$hht+$hth+$htt+$thh+$tht+$tth+$ttt))))
+percentageHTT=$(($(($htt*100))/$(($hhh+$hht+$hth+$htt+$thh+$tht+$tth+$ttt))))
+percentageTHH=$(($(($thh*100))/$(($hhh+$hht+$hth+$htt+$thh+$tht+$tth+$ttt))))
+percentageTHT=$(($(($tht*100))/$(($hhh+$hht+$hth+$htt+$thh+$tht+$tth+$ttt))))
+percentageTTH=$(($(($tth*100))/$(($hhh+$hht+$hth+$htt+$thh+$tht+$tth+$ttt))))
+percentageTTT=$(($(($ttt*100))/$(($hhh+$hht+$hth+$htt+$thh+$tht+$tth+$ttt))))
 
-echo " HEADS : $hh times    Pecentage (HEADS) combination = $percentageHH%"
-echo " TAILS : $ht times    Pecentage (TAILS) combination = $percentageHT%"
-echo " HEADS : $th times    Pecentage (HEADS) combination = $percentageTH%"
-echo " TAILS : $tt times    Pecentage (TAILS) combination = $percentageTT%"
+echo " HEADS/HEADS/HEADS : $hhh times    Pecentage (HHH) combination = $percentageHHH%"
+echo " HEADS/HEADS/TAILS : $hht times    Pecentage (HHT) combination = $percentageHHT%"
+echo " HEADS/TAILS/HEADS : $hth times    Pecentage (HTH) combination = $percentageHTH%"
+echo " HEADS/TAILS/TAILS : $htt times    Pecentage (HTT) combination = $percentageHTT%"
+echo " TAILS/HEADS/HEADS : $thh times    Pecentage (THH) combination = $percentageTHH%"
+echo " TAILS/HEADS/TAILS : $tht times    Pecentage (THT) combination = $percentageTHT%"
+echo " TAILS/TAILS/HEADS : $thh times    Pecentage (TTH) combination = $percentageTTH%"
+echo " TAILS/TAILS/TAILS : $ttt times    Pecentage (TTT) combination = $percentageTTT%"
 echo "Dictionary of Results : "
-echo "${doubletDictionary[@]}"
+echo "${tripletDictionary[@]}"
 echo ""
