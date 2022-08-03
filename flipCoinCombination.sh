@@ -11,25 +11,35 @@ echo ""
 
 #As a simulator, loop through Multiple times of flipping a coin store the Singlet Combination in a Dictionary. Finally determine the percentage of the Singlet Combination.
 #Singlet shows Heads or Tails
-h=0; t=0;
-declare -A flipDictionary
+hh=0; ht=0; th=0; tt=0;
+declare -A doubletDictionary
 for (( i = 0; i<100; i++ )); do
-	flip=$((RANDOM%2))
-	if [[ ${flip} -eq 0 ]]; then
-		h=$((h+1))
-		flipDictionary[$i]=H
-	elif [[ ${flip} -eq 1 ]]; then
-		t=$((t+1))
-		flipDictionary[$i]=T
+	flip1=$((RANDOM%2))
+	flip2=$((RANDOM%2))
+	if [[ ${flip1} -eq 0 && ${flip2} -eq 0 ]]; then
+		hh=$((hh+1))
+		doubletDictionary[$i]=HH
+	elif [[ ${flip1} -eq 0 && ${flip2} -eq 1 ]]; then
+		ht=$((ht+1))
+		doubletDictionary[$i]=HT
+	elif [[ ${flip1} -eq 1 && ${flip2} -eq 0 ]]; then
+		th=$((th+1))
+		doubletDictionary[$i]=TH
+	elif [[ ${flip1} -eq 1 && ${flip2} -eq 1 ]]; then
+		tt=$((tt+1))
+		doubletDictionary[$i]=TT
 	fi
 done
 
-percentageHeads=$(($(($h*100))/$(($h+$t))))
-percentageTails=$(($(($t*100))/$(($h+$t))))
+percentageHH=$(($(($hh*100))/$(($hh+$th+$ht+$tt))))
+percentageHT=$(($(($ht*100))/$(($hh+$th+$ht+$tt))))
+percentageTH=$(($(($th*100))/$(($hh+$th+$ht+$tt))))
+percentageTT=$(($(($tt*100))/$(($hh+$th+$ht+$tt))))
 
-echo " HEADS : $h times    Pecentage (HEADS) combination = $percentageHeads%"
-echo " TAILS : $t times    Pecentage (TAILS) combination = $percentageTails%"
+echo " HEADS : $hh times    Pecentage (HEADS) combination = $percentageHH%"
+echo " TAILS : $ht times    Pecentage (TAILS) combination = $percentageHT%"
+echo " HEADS : $th times    Pecentage (HEADS) combination = $percentageTH%"
+echo " TAILS : $tt times    Pecentage (TAILS) combination = $percentageTT%"
 echo "Dictionary of Results : "
-echo "${flipDictionary[@]}"
+echo "${doubletDictionary[@]}"
 echo ""
-
