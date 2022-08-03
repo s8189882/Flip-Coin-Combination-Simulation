@@ -36,10 +36,10 @@ percentageHT=$(($(($ht*100))/$(($hh+$th+$ht+$tt))))
 percentageTH=$(($(($th*100))/$(($hh+$th+$ht+$tt))))
 percentageTT=$(($(($tt*100))/$(($hh+$th+$ht+$tt))))
 
-echo " HEADS : $hh times    Pecentage (HEADS) combination = $percentageHH%"
-echo " TAILS : $ht times    Pecentage (TAILS) combination = $percentageHT%"
-echo " HEADS : $th times    Pecentage (HEADS) combination = $percentageTH%"
-echo " TAILS : $tt times    Pecentage (TAILS) combination = $percentageTT%"
+echo " HEADS HEADS : $hh times    Pecentage (HH) combination = $percentageHH%"
+echo " HEADS TAILS : $ht times    Pecentage (HT) combination = $percentageHT%"
+echo " TAILS HEADS : $th times    Pecentage (TH) combination = $percentageTH%"
+echo " TAILS TAILS : $tt times    Pecentage (TT) combination = $percentageTT%"
 echo "Dictionary of Results : "
 echo "${doubletDictionary[@]}"
 echo ""
