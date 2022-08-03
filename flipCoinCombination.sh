@@ -9,14 +9,27 @@ echo "This problem displays winning percentage of Head or Tail Combination in a 
 echo ""
 
 
-#As a Simulator start with Flipping a Coin to Display Heads or Tails
-#Use ((RANDOM)) to find Heads or Tails
-#Name the file flipCoinCombination.sh
-flip=$((RANDOM%2))
+#As a simulator, loop through Multiple times of flipping a coin store the Singlet Combination in a Dictionary. Finally determine the percentage of the Singlet Combination.
+#Singlet shows Heads or Tails
+h=0; t=0;
+declare -A flipDictionary
+for (( i = 0; i<100; i++ )); do
+	flip=$((RANDOM%2))
+	if [[ ${flip} -eq 0 ]]; then
+		h=$((h+1))
+		flipDictionary[$i]=H
+	elif [[ ${flip} -eq 1 ]]; then
+		t=$((t+1))
+		flipDictionary[$i]=T
+	fi
+done
 
-if [[ ${flip} -eq 0 ]]; then
-	echo HEADS
-elif [[ ${flip} -eq 1 ]]; then
-	echo TAILS
-fi
+percentageHeads=$(($(($h*100))/$(($h+$t))))
+percentageTails=$(($(($t*100))/$(($h+$t))))
+
+echo " HEADS : $h times    Pecentage (HEADS) combination = $percentageHeads%"
+echo " TAILS : $t times    Pecentage (TAILS) combination = $percentageTails%"
+echo "Dictionary of Results : "
+echo "${flipDictionary[@]}"
 echo ""
+
